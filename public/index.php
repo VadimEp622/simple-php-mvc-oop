@@ -3,11 +3,12 @@
 
 // TODO:
 // 1. add different routes
-// 2. ???
+// 2. add lists
+// 3. add forms
 
 
 const BASE_PATH = __DIR__ . '/../';
-const BASE_URI = '/proj-php/php-sql-exercise/php-with-routing-classes-oop/public/';
+const BASE_URI = '/proj-php/php-sql-exercise/php-with-routing-classes-oop/public';
 
 require_once BASE_PATH . 'app/services/utils.service.php';
 
@@ -24,6 +25,6 @@ $router = new \Core\Router();
 $routes = require_once base_path('app/routes.php');
 
 
-$uri = remove_string_prefix(parse_url($_SERVER['REQUEST_URI'])['path'], BASE_URI) ?: '/';
+$uri = rtrim(remove_string_prefix(parse_url($_SERVER['REQUEST_URI'])['path'], BASE_URI), '/') ?: '/';
 $method = $_POST['_method'] ?? $_SERVER['REQUEST_METHOD'];
 $router->route($uri, $method);

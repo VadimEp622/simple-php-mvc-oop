@@ -1,8 +1,6 @@
 <?php
 
 
-
-
 function base_path($path)
 {
     return BASE_PATH . $path;
@@ -19,7 +17,15 @@ function remove_string_prefix($string, $prefix)
 function view($path, $attributes = [])
 {
     extract($attributes);
-    require_once base_path('app/views/' . $path);
+    require_once base_path('app/layout/layout.php');
+}
+
+function getNavlinks()
+{
+    return [
+        ['uri' => '/', 'label' => 'Home'],
+        ['uri' => '/about', 'label' => 'About'],
+    ];
 }
 
 // learning purposes
