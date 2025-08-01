@@ -23,8 +23,10 @@ $res = array(
 $forums = $db->query('SELECT * FROM Forums')->find();
 // dd($forums);
 
-if (count($forums) < 1) $res['forum-list']['error'] = true;
-else $res['forum-list']['forums'] = $forums;
+if (count($forums) < 1) {
+    $res['forum-list']['error'] = true;
+    $res['forum-list']['message'] = 'No forums found';
+} else $res['forum-list']['forums'] = $forums;
 
 
 
