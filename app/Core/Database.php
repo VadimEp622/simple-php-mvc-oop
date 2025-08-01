@@ -30,4 +30,8 @@ class Database
         }
         return $items;
     }
+
+    public function affected_rows(){
+        return $this->statement->affected_rows;
+    }
 }

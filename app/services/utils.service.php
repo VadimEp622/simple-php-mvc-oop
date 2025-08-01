@@ -28,6 +28,16 @@ function getNavlinks()
     ];
 }
 
+function has_validation_errors(array $validation): bool
+{
+    foreach ($validation as $field => $data) {
+        if ($data['error']) {
+            return true;
+        }
+    }
+    return false;
+}
+
 // learning purposes
 function dd($data)
 {
