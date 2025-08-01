@@ -2,15 +2,37 @@
 
 $heading = 'Home Page';
 
-// use Core\App;
-// use Core\Database;
+use Core\App;
+use Core\Database;
 
-// $db = App::resolve(Database::class);
+$db = App::resolve(Database::class);
 
-// $forums = $db->query('SELECT * FROM Forums')->find();
+
+// TODO - reasearch forums fetch possible errors, and how they affect app, and if I should make something like - 
+// $res[$current_partial]['forums'] / $res[$current_partial]['error']
+// if assuming we want to have multiple partial views which can also be multiple forms
+
+
+// TODO: forum create form
+
+$res = array(
+    'forum-list' => array('error' => false, 'message' => 'Template error message')
+);
+
+
+$forums = $db->query('SELECT * FROM Forums')->find();
 // dd($forums);
+
+if (count($forums) < 1) $res['forum-list']['error'] = true;
+else $res['forum-list']['forums'] = $forums;
+
+
+
 
 view(
     'home.view.php',
-    ['heading' => $heading]
+    [
+        'heading' => $heading,
+        'res' => $res
+    ]
 );
