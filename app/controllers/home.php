@@ -14,7 +14,6 @@ $db = App::resolve(Database::class);
 // if assuming we want to have multiple partial views which can also be multiple forms
 
 
-// TODO: forum delete
 
 $res = array(
     'forum-list' => array('error' => false, 'message' => 'Template error message')
