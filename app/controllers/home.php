@@ -15,10 +15,13 @@ $db = App::resolve(Database::class);
 
 // TODO - add user/thread list/forums
 
+// TODO - add user delete/populate
+
 
 
 $res = array(
-    'forum-list' => array('error' => false, 'message' => 'Template error message')
+    'forum-list' => array('error' => false, 'message' => 'Template error message'),
+    'user-list' => array('error' => false, 'message' => 'Template error message')
 );
 
 $validation = array(
@@ -28,6 +31,7 @@ $validation = array(
 );
 
 
+// ========== Forums ==========
 $forums = $db->query('SELECT * FROM Forums')->find();
 
 if (count($forums) < 1) {
@@ -60,6 +64,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['current_form']) && $_P
     }
 }
 
+
+// ========== Users ==========
+$users = $db->query('SELECT * FROM Users')->find();
+
+if (count($users) < 1) {
+    $res['user-list']['error'] = true;
+    $res['user-list']['message'] = 'No users found';
+} else $res['user-list']['users'] = $users;
+
+
+
+
+// ========== Auxiliary functions (temporary?) ==========
 function create_forum($db, $title)
 {
     $affected_rows = $db->query('INSERT INTO Forums (title) VALUES (?)', 's', [$title])->affected_rows();
@@ -73,7 +90,7 @@ function check_forum_exists_by_title($db, $title): bool
 }
 
 
-
+// ========== View ==========
 view(
     'home.view.php',
     [
