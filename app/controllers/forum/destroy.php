@@ -5,7 +5,7 @@ use Core\Database;
 
 $db = App::resolve(Database::class);
 
-echo ('hi from forum destroy controller');
+// echo ('hi from forum destroy controller');
 
 $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT); // only allow digits (0-9) and plus (+) and minus (-)
 
