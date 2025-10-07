@@ -17,18 +17,40 @@ $db = App::resolve(Database::class);
 // TODO - add user populate
 // TODO - add thread list/form
 
+// TODO: consider - in Thread DB Table, should the "content" field exist as a string there?
+//      maybe it's better to tie first post (Post DB Table) to the thread as an identifier?
+//      also to consider - what can/should actually be deleted and by whom? 
+//      first post is always tied to it's related thread, so one can never be removed without the other.
+//      can thread creator, aka first post creator, remove/delete a thread? or is it an action that must only be done by an admin? 
+//      because a thread does not belong to poster itself anymore, since other people post on it...
+//      should 2nd post onwards be able to be removed by the poster? It should definitely be possible to EDIT it, at the very least...
+
+// INFO: my decision - make ALL post be in DB Post Table.
+
+// TODO: make thread form validation + db insert
+
+
 
 
 $res = array(
     'forum-list' => array('error' => false, 'message' => 'Template error message'),
-    'user-list' => array('error' => false, 'message' => 'Template error message')
+    'user-list' => array('error' => false, 'message' => 'Template error message'),
+    'thread-create-form' => array('error' => false, 'message' => 'Template error message'),
+    'thread-list' => array('error' => false, 'message' => 'Template error message')
 );
 
 $validation = array(
     'forum-create-form' => array(
         'title' => array('error' => false, 'message' => '')
+    ),
+    'thread-create-form' => array(
+        'title' => array('error' => false, 'message' => ''),
+        'content' => array('error' => false, 'message' => ''),
+        'forum' => array('error' => false, 'message' => ''),
+        'email' => array('error' => false, 'message' => '')
     )
 );
+
 
 
 // ========== Forums ==========
@@ -65,6 +87,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['current_form']) && $_P
 }
 
 
+
 // ========== Users ==========
 $users = $db->query('SELECT * FROM Users')->find();
 
@@ -73,6 +96,26 @@ if (count($users) < 1) {
     $res['user-list']['message'] = 'No users found';
 } else $res['user-list']['users'] = $users;
 
+
+
+// ========== Threads ==========
+$threads = $db->query('SELECT
+        Threads.id,
+        Threads.title,
+        COALESCE(Forums.title, Threads.forum_id) AS forum_title,
+        Threads.poster_email
+    FROM
+        Threads
+    LEFT JOIN Forums ON Threads.forum_id = Forums.id')->find();
+
+if (count($threads) < 1) {
+    $res['thread-list']['error'] = true;
+    $res['thread-list']['message'] = 'No threads found';
+} else $res['thread-list']['threads'] = $threads;
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['current_form']) && $_POST['current_form'] == 'thread-create-form') {
+    echo 'hi from home page\'s thread create validator';
+}
 
 
 
@@ -88,6 +131,7 @@ function check_forum_exists_by_title($db, $title): bool
     $forums = $db->query('SELECT * FROM Forums WHERE title = ?', 's', [$title])->find();
     return count($forums) > 0;
 }
+
 
 
 // ========== View ==========
