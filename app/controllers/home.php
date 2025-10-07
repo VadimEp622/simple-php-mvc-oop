@@ -13,6 +13,8 @@ $db = App::resolve(Database::class);
 // $res[$current_partial]['forums'] / $res[$current_partial]['error']
 // if assuming we want to have multiple partial views which can also be multiple forms
 
+// TODO - add user/thread list/forums
+
 
 
 $res = array(
