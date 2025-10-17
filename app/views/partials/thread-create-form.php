@@ -28,7 +28,7 @@
                 <div class="row mb-3">
                     <label for="email" class="col-sm-3 col-form-label">Email</label>
                     <div class="col-sm-9">
-                        <input type="email" name="email" class="form-control" value="<?= isset($email) ? $email : '' ?>">
+                        <input type="email" name="email" class="form-control" value="<?= isset($validation['thread-create-form']['email']['value']) ? $validation['thread-create-form']['email']['value'] : '' ?>">
                     </div>
                     <?php if ($validation['thread-create-form']['email']['error']) : ?>
                         <div class="text-danger"><?= $validation['thread-create-form']['email']['message'] ?></div>
@@ -38,7 +38,7 @@
                 <div class="row mb-3">
                     <label for="title" class="col-sm-3 col-form-label">Title</label>
                     <div class="col-sm-9">
-                        <input type="text" name="title" class="form-control" value="<?= isset($title) ? $title : '' ?>">
+                        <input type="text" name="title" class="form-control" value="<?= isset($validation['thread-create-form']['title']['value']) ? $validation['thread-create-form']['title']['value'] : '' ?>">
                     </div>
                     <?php if ($validation['thread-create-form']['title']['error']) : ?>
                         <div class="text-danger"><?= $validation['thread-create-form']['title']['message'] ?></div>
@@ -48,7 +48,7 @@
                 <div class="row mb-3">
                     <label for="content" class="col-sm-3 col-form-label">Content</label>
                     <div class="col-sm-9">
-                        <textarea name="content" class="form-control" aria-label="post content"><?= isset($content) ? $content : '' ?></textarea>
+                        <textarea name="content" class="form-control" aria-label="post content"><?= isset($validation['thread-create-form']['content']['value']) ? $validation['thread-create-form']['content']['value'] : '' ?></textarea>
                     </div>
                     <?php if ($validation['thread-create-form']['content']['error']) : ?>
                         <div class="text-danger"><?= $validation['thread-create-form']['content']['message'] ?></div>

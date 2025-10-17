@@ -15,4 +15,15 @@ class Validator
     {
         return !!filter_var($value, FILTER_VALIDATE_EMAIL);
     }
+
+    public static function id_int($value): bool
+    {
+        $options = array(
+            'options' => array(
+                'min_range' => 1
+            ),
+        );
+
+        return !!filter_var($value, FILTER_VALIDATE_INT, $options);
+    }
 }
