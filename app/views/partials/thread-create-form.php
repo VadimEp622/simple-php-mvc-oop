@@ -14,9 +14,18 @@
                     <label for="forum" class="col-sm-3 col-form-label">Forum</label>
                     <div class="col-sm-9">
                         <select name="forum" class="form-select" aria-label="forum select">
-                            <option value='' selected>Select forum</option>
+                            <?php if ($validation['thread-create-form']['forum']['error'] || !isset($validation['thread-create-form']['forum']['value'])): ?>
+                                <option value='' selected>Select forum</option>
+                            <?php else: ?>
+                                <option value=''>Select forum</option>
+                            <?php endif; ?>
+
                             <?php foreach ($res['thread-create-form']['forums'] as $forum) : ?>
-                                <option value="<?= $forum['id'] ?>"><?= $forum['title'] ?></option>
+                                <?php if (!$validation['thread-create-form']['forum']['error'] && isset($validation['thread-create-form']['forum']['value']) && (int)$validation['thread-create-form']['forum']['value'] === (int)$forum['id']) : ?>
+                                    <option value="<?= $forum['id'] ?>" selected><?= $forum['title'] ?></option>
+                                <?php else: ?>
+                                    <option value="<?= $forum['id'] ?>"><?= $forum['title'] ?></option>
+                                <?php endif; ?>
                             <?php endforeach ?>
                         </select>
                     </div>

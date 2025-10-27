@@ -16,6 +16,7 @@ class Validator
         return !!filter_var($value, FILTER_VALIDATE_EMAIL);
     }
 
+    // INFO: checks if value is a valid incremental integer id (1,2,3,4...)
     public static function id_int($value): bool
     {
         $options = array(

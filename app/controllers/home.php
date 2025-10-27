@@ -144,9 +144,14 @@ function thread_form_validator($db, &$validation)
     $validation['thread-create-form']['content']['value'] = $content;
 
 
+
     if (!Validator::id_int($forum)) {
         $validation['thread-create-form']['forum']['error'] = true;
         $validation['thread-create-form']['forum']['message'] = "Forum is required";
+    } else if (!check_forum_exists_by_id($db, $forum)) {
+        // incase forum was deleted from DB
+        $validation['thread-create-form']['forum']['error'] = true;
+        $validation['thread-create-form']['forum']['message'] = "Forum is invalid";
     }
 
     if (!Validator::string($email)) {
@@ -170,10 +175,6 @@ function thread_form_validator($db, &$validation)
         $validation['thread-create-form']['content']['message'] = "Content is required";
     }
 
-    // TODO: add option to add "selected" attribute to option element, or default to first option 
-    //          (take care of possibility of forum item deletion in DB, after populating select element, and before clicking submit and validating,
-    //           since removed forum id recieved for validation will not have an option element match)
-    
     // TODO: if no validation errors, create thread and first post in database 
 }
 
@@ -196,6 +197,11 @@ function check_forum_exists_by_title($db, $title): bool
     return count($forums) > 0;
 }
 
+function check_forum_exists_by_id($db, $forum_id): bool
+{
+    $forums = $db->query('SELECT * FROM Forums WHERE id = ?', 'i', [$forum_id])->find();
+    return count($forums) > 0;
+}
 
 
 // ========== View ==========
