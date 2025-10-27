@@ -31,7 +31,13 @@ class Database
         return $items;
     }
 
-    public function affected_rows(){
+    public function affected_rows()
+    {
         return $this->statement->affected_rows;
+    }
+
+    public function insert_id()
+    {
+        return $this->statement->insert_id;
     }
 }

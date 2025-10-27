@@ -27,7 +27,7 @@ $db = App::resolve(Database::class);
 
 // INFO: my decision - make ALL post be in DB Post Table.
 
-// TODO: make thread form validation + db insert
+// TODO: make thread controller + thread view
 
 
 
@@ -176,6 +176,15 @@ function thread_form_validator($db, &$validation)
     }
 
     // TODO: if no validation errors, create thread and first post in database 
+    if (!has_validation_errors($validation['thread-create-form'])) {
+        if (create_thread($db, $forum, $email, $title, $content)) {
+            // TODO: success flash message
+        } else {
+            // TODO: error flash message
+        }
+        Header("Location: " . 'http://localhost/proj-php/php-sql-exercise/php-with-routing-classes-oop/public' . '/');
+        exit;
+    }
 }
 
 
@@ -201,6 +210,16 @@ function check_forum_exists_by_id($db, $forum_id): bool
 {
     $forums = $db->query('SELECT * FROM Forums WHERE id = ?', 'i', [$forum_id])->find();
     return count($forums) > 0;
+}
+
+function create_thread($db, $forum_id, $email, $title, $content)
+{
+    // TODO: consider how to handle when a thread is inserted succesfully, but a post fails to be inserted
+    $inserted_thread_id = $db->query('INSERT INTO Threads (title, forum_id, poster_email) VALUES (?,?,?)', 'sis', [$title, $forum_id, $email])->insert_id();
+    if (!Validator::id_int($inserted_thread_id)) return false;
+
+    $affected_rows = $db->query('INSERT INTO Posts (thread_id, poster_email, content, is_hero_post) VALUES (?,?,?,?)', 'issi', [$inserted_thread_id, $email, $content, 1])->affected_rows();
+    return $affected_rows > 0;
 }
 
 

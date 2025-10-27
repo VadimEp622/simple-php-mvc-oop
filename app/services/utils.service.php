@@ -41,6 +41,10 @@ function has_validation_errors(array $validation): bool
 // learning purposes
 function dd($data)
 {
+    //    usage example:    
+    // A: dd($inserted_id);
+    // B: dd(array('id inserted succesfully', $inserted_id));
+    
     echo "<pre>";
     var_dump($data);
     echo "</pre>";
