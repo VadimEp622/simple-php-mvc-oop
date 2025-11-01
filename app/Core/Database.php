@@ -21,6 +21,7 @@ class Database
         return $this;
     }
 
+    // TODO: make a findOne function
     public function find()
     {
         $items = [];
