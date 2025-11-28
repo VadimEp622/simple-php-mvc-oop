@@ -18,8 +18,16 @@
             <tbody>
                 <?php foreach ($res['thread-list']['threads'] as $value) : ?>
                     <tr>
-                        <th scope="row"><?= $value['id'] ?></th>
-                        <td><?= $value['title'] ?></td>
+                        <th scope="row">
+                            <a href=<?php echo BASE_URI . '/thread' . '?id=' . $value['id'] ?>>
+                                <?= $value['id'] ?>
+                            </a>
+                        </th>
+                        <td>
+                            <a href=<?php echo BASE_URI . '/thread' . '?id=' . $value['id'] ?>>
+                                <?= $value['title'] ?>
+                            </a>
+                        </td>
                         <td><?= $value['forum_title'] ?></td>
                         <td><?= $value['poster_email'] ?></td>
                         <td>
