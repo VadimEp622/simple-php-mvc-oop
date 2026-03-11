@@ -2,6 +2,7 @@
 
 $router->get('/', 'controllers/home.php');
 $router->post('/', 'controllers/home.php');
+
 $router->get('/about', 'controllers/about.php');
 
 $router->get('/thread', 'controllers/thread/index.php');

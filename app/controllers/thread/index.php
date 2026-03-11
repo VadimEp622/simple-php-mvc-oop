@@ -2,7 +2,6 @@
 
 $heading = 'Thread Page';
 
-
 use Core\App;
 use Core\Database;
 use Core\Validator;
@@ -24,8 +23,6 @@ $query_validation = array(
 );
 
 thread_index_query_validator($db, $query_validation, $res);
-
-
 
 
 dd(array('res' => $res, 'query_validation' => $query_validation));
