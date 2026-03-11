@@ -2,6 +2,8 @@
 
 namespace Core;
 
+// INFO: a static method is one that can be called, without having to first instantiate the object.
+
 class App
 {
     protected static $container;

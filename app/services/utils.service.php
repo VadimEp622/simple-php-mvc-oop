@@ -16,6 +16,9 @@ function remove_string_prefix($string, $prefix)
 
 function view($path, $attributes = [])
 {
+    // INFO: extract() - accepts an array, and turns that array into a set of variables,
+    //      where the name of the variable is the "key", and the value of the variable is the "value" associated with the "key".
+    //      used here to inherit selected variables from to the controller to the view.
     extract($attributes);
     require_once base_path('app/layout/layout.php');
 }

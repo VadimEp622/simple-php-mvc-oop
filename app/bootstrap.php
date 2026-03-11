@@ -13,3 +13,4 @@ $container->bind('Core\Database', function () {
 });
 
 App::setContainer($container);
+

@@ -29,6 +29,8 @@ $db = App::resolve(Database::class);
 
 // TODO: make thread controller + thread view
 
+// TODO: consider incorporating a flash message class, which retrieves from sessions (session_start() should conceptually be in bootstrap.php)
+
 
 
 
