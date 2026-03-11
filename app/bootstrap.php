@@ -1,8 +1,11 @@
 <?php
 
+session_start();
+
 use Core\App;
 use Core\Container;
 use Core\Database;
+use Core\Flash;
 
 $container = new Container();
 
@@ -12,5 +15,6 @@ $container->bind('Core\Database', function () {
     return new Database($config['database']);
 });
 
-App::setContainer($container);
+$container->bind(Flash::class, fn() => new Flash());
 
+App::setContainer($container);

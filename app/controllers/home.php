@@ -5,8 +5,10 @@ $heading = 'Home Page';
 use Core\App;
 use Core\Database;
 use Core\Validator;
+use Core\Flash;
 
 $db = App::resolve(Database::class);
+$flash = App::resolve(Flash::class);
 
 
 // TODO - reasearch forums fetch possible errors, and how they affect app, and if I should make something like - 
@@ -29,7 +31,10 @@ $db = App::resolve(Database::class);
 
 // TODO: make thread controller + thread view
 
-// TODO: consider incorporating a flash message class, which retrieves from sessions (session_start() should conceptually be in bootstrap.php)
+// DONE: consider incorporating a flash message class, which retrieves from sessions (session_start() should conceptually be in bootstrap.php)
+
+// TODO: FLASH MESSAGES - * improve styling
+//                      * add flash messages to relatevant operations
 
 
 
@@ -52,6 +57,8 @@ $validation = array(
         'email' => array('error' => false, 'message' => '')
     )
 );
+
+$flash_message = $flash->get();
 
 
 
@@ -231,6 +238,7 @@ view(
     [
         'heading' => $heading,
         'res' => $res,
-        'validation' => $validation
+        'validation' => $validation,
+        'flash_message' => $flash_message
     ]
 );

@@ -13,6 +13,7 @@
 </head>
 
 <body>
+    <?php require_once base_path('app/views/partials/flash-message.php'); ?>
     <?php require_once base_path('app/views/partials/navbar.php'); ?>
     <?php require_once base_path('app/views/' . $path); ?>
 

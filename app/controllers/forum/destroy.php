@@ -2,10 +2,10 @@
 
 use Core\App;
 use Core\Database;
+use Core\Flash;
 
 $db = App::resolve(Database::class);
-
-// echo ('hi from forum destroy controller');
+$flash = App::resolve(Flash::class);
 
 $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT); // only allow digits (0-9) and plus (+) and minus (-)
 
@@ -16,8 +16,10 @@ if (empty($id)) {
 
 if (delete_forum($db, $id)) {
     // TODO: success flash message
+    $flash->set('success', 'Forum delete success');
 } else {
     // TODO: error flash message
+    $flash->set('failed', 'Forum delete failed');
 }
 
 function delete_forum($db, $id)
